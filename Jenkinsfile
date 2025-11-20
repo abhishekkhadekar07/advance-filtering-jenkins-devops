@@ -14,7 +14,7 @@ triggers {
 
         stage('Clone Repository') {
             steps {
-                echo "Cloning repository..."
+                echo "Cloning repository.d.."
                 git branch: 'master', url: "${GIT_REPO}"
             }
         }
