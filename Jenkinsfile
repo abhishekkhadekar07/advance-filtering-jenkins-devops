@@ -22,6 +22,32 @@ pipeline {
                 git branch: 'master', url: "${GIT_REPO}"
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                sh """
+                    echo "Installing node modules..."
+                    npm install
+                """
+            }
+        }
+
+        stage('Prettier Format Check') {
+            steps {
+                sh """
+                    echo "Running Prettier Check..."
+                    npm run format
+                """
+            }
+        }
+
+        stage('ESLint Lint Check') {
+            steps {
+                sh """
+                    echo "Running ESLint..."
+                    npm run lint
+                """
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
