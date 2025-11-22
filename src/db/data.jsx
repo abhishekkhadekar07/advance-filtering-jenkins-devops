@@ -315,7 +315,7 @@ const data = [
     company: "Adidas",
     color: "black",
     category: "flats",
-  }
+  },
 ];
 
 export default data;

@@ -18,9 +18,10 @@ function App() {
   };
 
   const filteredItems = products.filter(
-    (product) => product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
+    (product) =>
+      product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1,
   );
-  console.log('filteredItems', filteredItems);
+  console.log("filteredItems", filteredItems);
   // ----------- Radio Filtering -----------
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -47,7 +48,7 @@ function App() {
           color === selected ||
           company === selected ||
           newPrice === selected ||
-          title === selected
+          title === selected,
       );
     }
 
@@ -62,12 +63,11 @@ function App() {
           prevPrice={prevPrice}
           newPrice={newPrice}
         />
-      )
+      ),
     );
   }
 
   const result = filteredData(products, selectedCategory, query);
-
 
   return (
     <>
