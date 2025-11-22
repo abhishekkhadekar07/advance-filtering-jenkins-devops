@@ -80,7 +80,7 @@ pipeline {
 
     post {
         success {
-            echo "🎉 Build pushed and app running locally at http://localhost:3000"
+            echo "🎉 Build pushed and app running locally at http://localhost:3001"
         }
         failure {
             echo "❌ Pipeline failed!"
