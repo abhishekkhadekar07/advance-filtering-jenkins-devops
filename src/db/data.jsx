@@ -315,18 +315,7 @@ const data = [
     company: "Adidas",
     color: "black",
     category: "flats",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvAhC_CW1v8Knwrjni_68yTtW9eNdyd5OdngxqujfnSkBAQfG6XyAdwafqT_Hp8xZU1AaoC7ZXg",
-    title: "Wedding Preparation ",
-    star: <AiFillStar className="rating-star" />,
-    reviews: "(123 reviews)",
-    prevPrice: "$140,00",
-    newPrice: "50",
-    company: "Adidas",
-    color: "black",
-    category: "flats",
-  },
+  }
 ];
 
 export default data;
