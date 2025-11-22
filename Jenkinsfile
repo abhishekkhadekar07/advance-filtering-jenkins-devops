@@ -10,8 +10,8 @@ pipeline {
         DOCKER_IMAGE = "akhadekar07/react-advance-filtering"
         GIT_REPO = "https://github.com/abhishekkhadekar07/advance-filtering-jenkins-devops.git"
         CONTAINER_NAME = "react-local-app"
-        LOCAL_PORT = "3000"   // host port (Windows)
-        CONTAINER_PORT = "3000"  // app port inside container
+        LOCAL_PORT = "3001"   // host port (Windows)
+        CONTAINER_PORT = "80"  // app port inside container
     }
 
     stages {
