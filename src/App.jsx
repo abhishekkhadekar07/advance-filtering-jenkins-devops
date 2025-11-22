@@ -75,6 +75,7 @@ function App() {
       <Navigation query={query} handleInputChange={handleInputChange} />
       <Recommended handleClick={handleClick} />
       <Products result={result} />
+      <h1>getssdnjaenjdn</h1>
     </>
   );
 }
