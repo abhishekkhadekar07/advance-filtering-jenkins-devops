@@ -17,21 +17,21 @@ pipeline {
 
     stages {
 
-        // stage('Clone Repository') {
-        //     steps {
-        //         echo "Cloning repository..."
-                
-        //         git branch: 'master', url: "${GIT_REPO}"
-        //     }
-        // }
-         stage('Clone Repository') {
+        stage('Clone Repository') {
             steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: 'refs/heads/master']],
-                    userRemoteConfigs: [[url: "${GIT_REPO}"]]
-                ])
+                echo "Cloning repository..."
+                
+                git branch: 'master', url: "${GIT_REPO}"
             }
         }
+        //  stage('Clone Repository') {
+        //     steps {
+        //         checkout([$class: 'GitSCM',
+        //             branches: [[name: 'refs/heads/master']],
+        //             userRemoteConfigs: [[url: "${GIT_REPO}"]]
+        //         ])
+        //     }
+        // }
         stage('Install Dependencies') {
             steps {
                 sh """
@@ -41,62 +41,62 @@ pipeline {
             }
         }
 
-        //  stage('Prettier Format Check (Non Blocking)') {
-        //     steps {
-        //         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-        //             sh """
-        //                 echo "Running Prettier Check..."
-        //                 npm run format
-        //             """
-        //         }
-        //     }
-        // }
-        stage('Prettier Format Check (Non Blocking)') {
+         stage('Prettier Format Check (Non Blocking)') {
             steps {
-                script {
-                    githubNotify context: "Prettier", description: "Checking code formatting...", status: "PENDING"
-
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh "npm run format"
-                    }
-
-                    if (currentBuild.currentResult == "FAILURE") {
-                        githubNotify context: "Prettier", description: "Formatting issues detected", status: "FAILURE"
-                    } else {
-                        githubNotify context: "Prettier", description: "Formatting OK", status: "SUCCESS"
-                    }
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh """
+                        echo "Running Prettier Check..."
+                        npm run format
+                    """
                 }
             }
         }
-
-        // stage('ESLint Lint Check (Non Blocking)') {
+        // stage('Prettier Format Check (Non Blocking)') {
         //     steps {
-        //         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-        //             sh """
-        //                 echo "Running ESLint..."
-        //                 npm run lint
-        //             """
+        //         script {
+        //             githubNotify context: "Prettier", description: "Checking code formatting...", status: "PENDING"
+
+        //             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        //                 sh "npm run format"
+        //             }
+
+        //             if (currentBuild.currentResult == "FAILURE") {
+        //                 githubNotify context: "Prettier", description: "Formatting issues detected", status: "FAILURE"
+        //             } else {
+        //                 githubNotify context: "Prettier", description: "Formatting OK", status: "SUCCESS"
+        //             }
         //         }
         //     }
         // }
 
-         stage('ESLint Lint Check (Non Blocking)') {
+        stage('ESLint Lint Check (Non Blocking)') {
             steps {
-                script {
-                    githubNotify context: "ESLint", description: "Running ESLint...", status: "PENDING"
-
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh "npm run lint"
-                    }
-
-                    if (currentBuild.currentResult == "FAILURE") {
-                        githubNotify context: "ESLint", description: "Lint errors found", status: "FAILURE"
-                    } else {
-                        githubNotify context: "ESLint", description: "Linting passed", status: "SUCCESS"
-                    }
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh """
+                        echo "Running ESLint..."
+                        npm run lint
+                    """
                 }
             }
         }
+
+        //  stage('ESLint Lint Check (Non Blocking)') {
+        //     steps {
+        //         script {
+        //             githubNotify context: "ESLint", description: "Running ESLint...", status: "PENDING"
+
+        //             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        //                 sh "npm run lint"
+        //             }
+
+        //             if (currentBuild.currentResult == "FAILURE") {
+        //                 githubNotify context: "ESLint", description: "Lint errors found", status: "FAILURE"
+        //             } else {
+        //                 githubNotify context: "ESLint", description: "Linting passed", status: "SUCCESS"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
