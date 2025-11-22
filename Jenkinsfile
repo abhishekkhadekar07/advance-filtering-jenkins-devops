@@ -1,67 +1,89 @@
 pipeline {
     agent any
-triggers {
-    githubPush()
-}
+
+    triggers {
+        githubPush()
+    }
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
-        DOCKER_IMAGE = "akhadekar07/react-advance-filtering"   // change to your repo
+        DOCKER_IMAGE = "akhadekar07/react-advance-filtering"
         GIT_REPO = "https://github.com/abhishekkhadekar07/advance-filtering-jenkins-devops.git"
+        CONTAINER_NAME = "react-local-app"
+        LOCAL_PORT = "3000"   // host port (Windows)
+        CONTAINER_PORT = "3000"  // app port inside container
     }
 
     stages {
 
         stage('Clone Repository') {
             steps {
-                echo "Cloning repository.d.."
+                echo "Cloning repository..."
                 git branch: 'master', url: "${GIT_REPO}"
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
+                sh """
                     echo "Building Docker image..."
-                    sh """
-                        docker build -t ${DOCKER_IMAGE}:latest .
-                    """
-                }
+                    docker build -t ${DOCKER_IMAGE}:latest .
+                """
             }
         }
 
         stage('Docker Login') {
             steps {
-                script {
-                    echo "Logging into Docker Hub..."
-                    withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh """
-                            echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin
-                        """
-                    }
+                withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                        echo "$PASS" | docker login -u "$USER" --password-stdin
+                    '''
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                script {
-                    echo "Pushing image to Docker Hub..."
-                    sh """
-                        docker push ${DOCKER_IMAGE}:latest
-                    """
-                }
+                sh """
+                    echo "Pushing latest image..."
+                    docker push ${DOCKER_IMAGE}:latest
+                """
             }
         }
 
+        stage('Stop Old Container') {
+            steps {
+                sh """
+                    echo "Stopping old container if running..."
+                    docker stop ${CONTAINER_NAME} || true
+
+                    echo "Removing old container..."
+                    docker rm ${CONTAINER_NAME} || true
+                """
+            }
+        }
+
+        stage('Run New Container Locally') {
+            steps {
+                sh """
+                    echo "Running new container on port 3000..."
+                    docker run -d \
+                        --name ${CONTAINER_NAME} \
+                        -p ${LOCAL_PORT}:${CONTAINER_PORT} \
+                        ${DOCKER_IMAGE}:latest
+
+                    echo "Application now live at: http://localhost:${LOCAL_PORT}"
+                """
+            }
+        }
     }
 
     post {
         success {
-            echo "Image uploaded successfully to Docker Hub!"
+            echo "🎉 Build pushed and app running locally at http://localhost:3000"
         }
         failure {
-            echo "Pipeline failed!"
+            echo "❌ Pipeline failed!"
         }
     }
 }
