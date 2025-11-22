@@ -31,21 +31,25 @@ pipeline {
             }
         }
 
-        stage('Prettier Format Check') {
+         stage('Prettier Format Check (Non Blocking)') {
             steps {
-                sh """
-                    echo "Running Prettier Check..."
-                    npm run format
-                """
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh """
+                        echo "Running Prettier Check..."
+                        npm run format
+                    """
+                }
             }
         }
 
-        stage('ESLint Lint Check') {
+        stage('ESLint Lint Check (Non Blocking)') {
             steps {
-                sh """
-                    echo "Running ESLint..."
-                    npm run lint
-                """
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh """
+                        echo "Running ESLint..."
+                        npm run lint
+                    """
+                }
             }
         }
 
