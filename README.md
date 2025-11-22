@@ -159,3 +159,6 @@ EXPOSE 8080
 # Start Jenkins
 
 CMD ["/usr/bin/jenkins"]
+
+
+all above are steps
