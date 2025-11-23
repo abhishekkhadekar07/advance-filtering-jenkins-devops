@@ -162,4 +162,3 @@ CMD ["/usr/bin/jenkins"]
 
 
 all above are steps
-sd
