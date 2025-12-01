@@ -15,7 +15,7 @@ hit save now inside repo commit some changes
 make sure u run ngrok http 8080 as jenkins runs on 8080 port 
 put link given ngrok for 8080 portal on webhook
 
-## some more info
+## Some more info
 In this repo I have used github webhooks in which i have used link for hitting the post metthod is which i derived from ngrok by command ngrok http 80 then it given some link that link need to be updated everytime when it runs so we need to change webhook link which generated from ngrok http 80
 In jenkins which is running locally which has docker and all other dependencies installed already
 so in jenkins we need to set
