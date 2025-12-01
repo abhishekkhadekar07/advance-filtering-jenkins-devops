@@ -17,9 +17,9 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # docker run --rm -it react-app:alpine sh 
 # docker run --rm -it react-app:alpine sh
 
-# Runs a Docker container from the image named react-app:alpine.
+# Runs a Docker container from the image named react-app:alpine. 
 
-# --rm means the container will be automatically removed when it stops.
+# --rm means the container will be automatically removed when it stops.f
 
 # -it means it runs in interactive mode with a TTY, allowing you to interact with the container.
 
