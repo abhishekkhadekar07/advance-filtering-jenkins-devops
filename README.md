@@ -1,3 +1,9 @@
+## Photos of Jenkins single pipeline
+<img width="1920" height="1080" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/ed5f917f-87cf-4c24-aa28-430bacd459a7" />
+<img width="1920" height="1080" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/6391f94a-b79f-4618-a9f2-277cf0aaf1d7" />
+<img width="1920" height="1080" alt="Screenshot (50)" src="https://github.com/user-attachments/assets/cf0569dd-264c-424d-9613-d52e11aef371" />
+<img width="1920" height="1080" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/426b0049-7c4c-406c-b775-f4f4d0ae235e" />
+
 # steps in jenkins 
 create item then create pipeline or multibranch pipeline
 then select for create single repo pipeline 
