@@ -31,7 +31,7 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 
-<!-- to verify -->
+## to verify
 
 kubectl version --client
 kubeadm version
