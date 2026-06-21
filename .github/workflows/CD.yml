@@ -12,7 +12,7 @@ jobs:
     - name: pull Docker image
       run: sudo docker pull akhadekar07/advance-frontend:latest
     - name: Delete Old container
-      run: sudo docker rm -f akhadekar07/advance-frontend:latest
+      run: sudo docker rm -f advance
     - name: Run Docker container
-      run: sudo docker run -d -p 8080:80 --name advance-frontend:latest akhadekar07/advance-frontend:latest
+      run: sudo docker run -d -p 8080:80 --name advance akhadekar07/advance-frontend:latest
     
