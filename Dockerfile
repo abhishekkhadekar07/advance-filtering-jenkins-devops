@@ -10,9 +10,19 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:latest 
+FROM node:20-alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
+
+RUN npm install -g vite@5 && npm cache clean --force
+
+COPY --from=build /app/dist ./dist
+
+COPY vite.preview.config.js ./vite.config.js
+
+EXPOSE 4173
+
+CMD ["vite", "preview", "--host", "0.0.0.0", "--port", "4173"]
 
 # docker run --rm -it react-app:alpine sh 
 # docker run --rm -it react-app:alpine sh
