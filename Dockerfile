@@ -18,7 +18,7 @@ RUN npm install -g vite@5 && npm cache clean --force
 
 COPY --from=build /app/dist ./dist
 
-COPY vite.preview.config.js ./vite.config.js
+# COPY vite.preview.config.js ./vite.config.js
 
 EXPOSE 4173
 
