@@ -10,26 +10,16 @@ COPY . .
 RUN npm run build
 
 
-FROM node:20-alpine
+FROM nginx:latest 
 
-WORKDIR /app
-
-RUN npm install -g vite@5 && npm cache clean --force
-
-COPY --from=build /app/dist ./dist
-
-# COPY vite.preview.config.js ./vite.config.js
-
-EXPOSE 4173
-
-CMD ["vite", "preview", "--host", "0.0.0.0", "--port", "4173"]
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # docker run --rm -it react-app:alpine sh 
 # docker run --rm -it react-app:alpine sh
 
-# Runs a Docker container from the image named react-app:alpine. 
+# Runs a Docker container from the image named react-app:alpine.
 
-# --rm means the container will be automatically removed when it stops.f
+# --rm means the container will be automatically removed when it stops.
 
 # -it means it runs in interactive mode with a TTY, allowing you to interact with the container.
 
