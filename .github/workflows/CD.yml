@@ -14,5 +14,5 @@ jobs:
     - name: Delete Old container
       run: sudo docker rm -f akhadekar07/advance-frontend:latest
     - name: Run Docker container
-      run: sudo docker run -d -p 8080:80 --name advance-frontend:latest akhadekar/advance-frontend:latest
+      run: sudo docker run -d -p 8080:80 --name advance-frontend:latest akhadekar07/advance-frontend:latest
     
